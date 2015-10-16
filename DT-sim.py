@@ -863,25 +863,25 @@ def sampleScript1():
         #                print "derived RO: {r}".format(r=ro.id)
         
         # a sample credit update event for each of the derived ROs
-#        newCredit = 5
-#        for ro in derivedROList:
-#                print "script1:  credit update event for derived ro {x} with new credit {new}".format(x=ro.id, new=newCredit)
-#                simCreditUpdateEvent(ro, newCredit)  # new credit = 5
+        newCredit = 5
+        for ro in derivedROList:
+                print "script1:  credit update event for derived ro {x} with new credit {new}".format(x=ro.id, new=newCredit)
+                simCreditUpdateEvent(ro, newCredit)  # new credit = 5
 
         # one usage/gen event
-#        generatedROList = simReuseEvent(reusedRO=[aRO], useGen = True, derCount=2)   # use/gen
+        generatedROList = simReuseEvent(reusedRO=[aRO], useGen = True, derCount=2)   # use/gen
 
         # credit update event for each of the generated ROs
-#        newCredit = 3
-#        for ro in derivedROList:
-#	        print "script1:  credit update event for generated ro {x} with new credit {new}".format(x=ro.id, new=newCredit)
-#	        simCreditUpdateEvent(ro, newCredit)  # new credit = 5
+        newCredit = 3
+        for ro in derivedROList:
+	        print "script1:  credit update event for generated ro {x} with new credit {new}".format(x=ro.id, new=newCredit)
+	        simCreditUpdateEvent(ro, newCredit)  # new credit = 5
 
 
 
 
 ####
-#  simplest test case -- one RO, one reuse event, one credit update event
+#  the DCC 16 paper submssion scenario
 ####
 def paperScript():	
 
