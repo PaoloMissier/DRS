@@ -843,7 +843,7 @@ def randomSim():
 ####
 #  simplest test case -- one RO, one reuse event, one credit update event
 ####
-def script1():	
+def sampleScript1():	
 
 	print "****\nrunning script 1\n****"
 	
@@ -947,7 +947,7 @@ for i in range(0, dataOperatorsCount):
 
 
 #randomSim()
-#script1()
+#sampleScript1()
 paperScript()
 
 print "\n**** END OF SIMULATION ****\n"
