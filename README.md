@@ -14,7 +14,7 @@ It generates two types of events:
 For each event, the simulator:
 
 -  generates a corresponding provlet and updates the global provenance graph. Note that in reality this would be obtained as composition of provlets. In the simulation, composition is trivial because all RO IDs match by default.
-- propagates the credit from the derived RO to the upstream deriving ROs
+- propagates the transitive credit from the derived RO to the upstream deriving ROs
 
 The sequence of events can be simulated in two main ways:
 
@@ -31,5 +31,6 @@ The sequence of events can be simulated in two main ways:
 
 Much more to come, in time...
 
+-P. Missier
 
 
