@@ -1,4 +1,11 @@
 #!/usr/bin/env python
+
+##
+#  @author Paolo Missier
+#  The Data Reuse Simulator (DRS) v0.1 Oct. 2015 
+## 
+
+
 from d1_client import d1baseclient
 from d1_client.objectlistiterator import ObjectListIterator
 from prov.model import ProvDocument
@@ -11,31 +18,26 @@ import os
 import matplotlib.pyplot as plt
 
 #configurables
-dataOperatorsCount = 2  # 10 different dataOperators
+dataOperatorsCount = 10  # number of different dataOperators
 coreRepoSize = 5  # initial repo size (number of ROs)
 maxReuseCount = 10  # number of reuse / derivation events
 maxCreditUpdateEvents  = 10  # number of random ext credit update events 
 randomPickProb = 0.9  # RO will be picked at random for download with prob p, and
                       # it will be extracted from top of queue with prob (1-p)
-
-# constants
-DTns = "dt:"
-
-# switches	
+# global switches	
 createProvletGraphs = True  # produce individual provlets as png graphs?
 createDTGraphs      = False  # produce individual DTs as png graphs?
 shuffleReuseCreditEvents = False  # do we randomly mix reuse and credit events?
 
+##
+# data structures
+##
 repoSim = {}  # dictionary simulates data repository
 ROIdQueue = deque()   # FIFO queue with reinsertion used to ensure balanced reuse across ROs
 dataOperators = {}  # workers who upload, download, and derive/reuse
 
-
-#
-# dictionaries used to represent relationships in compound provenance graph
-#
-#attr    = {}  # attr(entity) -> agent  # attribution
-#assoc   = {}   # assoc(activity) -> entity  # association 
+# constants
+DTns = "dt:"
 
 
 #=========================
@@ -411,7 +413,7 @@ class DTManager:
 			print "downstream from {ro}:  {ro1} with act {a}".format(ro=aRO.id, ro1=aRO1.id, a=act)
 
 			if act is not None:
-				aY = aDT.activity(DTns+act)
+				aY = aDT.activity(DTns+act.id)
 				aDT.used(aY, eRO)
 				aDT.wasGeneratedBy(eRO1, aY)
 			else:			
@@ -599,7 +601,7 @@ class EventReporter:
                 self.allROs = []
                 self.DEFAULT_RAW_FILE = 'rawEvents.log'
                 self.DEFAULT_REPORT_FILE = 'plottableEvents.log'
-
+                self.DEFAULT_LOG_DIR = 'log'
                 
         def addEvent(self, desc, repoSim):
                 creditSnapshot = {}
@@ -615,11 +617,17 @@ class EventReporter:
 
         def printEvents(self, f = None):
 
-                if f is None:
-                        outfile = open(self.DEFAULT_RAW_FILE,'w')
+                if os.path.exists(self.DEFAULT_LOG_DIR):
+                        path = self.DEFAULT_LOG_DIR
                 else:
-                        outfile = open(f, 'w')
+                        path = ""
                         
+                if f is not None:
+                        outfileName = path + f
+                else:
+                        outfileName = path + self.DEFAULT_RAW_FILE
+
+                outfile = open(outfileName, 'w')
                 
                 header = "event number \tdescription\t"
                 for ROId in repoSim.keys():
@@ -946,9 +954,9 @@ for i in range(0, dataOperatorsCount):
 	dataOperators[i] = dataOperator('DO-'+str(i))	
 
 
-#randomSim()
+randomSim()
 #sampleScript1()
-paperScript()
+#paperScript()
 
 print "\n**** END OF SIMULATION ****\n"
 
